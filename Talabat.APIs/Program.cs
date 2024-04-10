@@ -1,22 +1,31 @@
 
+using Microsoft.EntityFrameworkCore;
+using Talabat.Repository.Data;
+
 namespace Talabat.APIs
 {
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
-			var builder = WebApplication.CreateBuilder(args);
+			var WebApplicationBuilder = WebApplication.CreateBuilder(args);
 
 			#region Configure Services
 			// Add services to the container.
 
-			builder.Services.AddControllers();
+			WebApplicationBuilder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen(); 
+			WebApplicationBuilder.Services.AddEndpointsApiExplorer();
+			WebApplicationBuilder.Services.AddSwaggerGen();
+
+			WebApplicationBuilder.Services.AddDbContext<StoreContext>(options =>
+			{
+				options.UseSqlServer(WebApplicationBuilder.Configuration.GetConnectionString("DefaultConnection"));
+			});
+
 			#endregion
 
-			var app = builder.Build();
+			var app = WebApplicationBuilder.Build();
 
 			#region Configure Kestrel Middleareas
 			// Configure the HTTP request pipeline.
