@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.APIs", "Talabat.API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Core", "Talabat.Core\Talabat.Core.csproj", "{891196DB-E3BC-41C0-8AA1-2CC8EF5B917D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taabat.Repository", "Taabat.Repository\Taabat.Repository.csproj", "{723F410A-E5F7-465E-8D7C-F37ACB34C8F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Repository", "Taabat.Repository\Talabat.Repository.csproj", "{723F410A-E5F7-465E-8D7C-F37ACB34C8F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talabat.Service", "Talabat.Service\Talabat.Service.csproj", "{3EA62584-D883-42D5-A433-E52616A7659E}"
 EndProject
