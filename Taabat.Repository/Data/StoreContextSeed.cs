@@ -12,7 +12,7 @@ namespace Talabat.Repository.Data
 	{
 		public async static Task SeedAsync(StoreContext context)
 		{
-			if (! context.ProductBrands.Any())
+			if (!context.ProductBrands.Any())
 			{
 				var brandsData = await File.ReadAllTextAsync("../Taabat.Repository/Data/DataSeed/brands.json");
 				var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
@@ -38,19 +38,18 @@ namespace Talabat.Repository.Data
 				}
 			}
 
-			/// Product Seeding UnComment when products.json exist
-			///if (!context.Products.Any())
-			///{
-			///	var productsData = await File.ReadAllTextAsync("../Taabat.Repository/Data/DataSeed/products.json");
-			///	var products = JsonSerializer.Deserialize<List<Product>>(productsData);
-			///	if (products?.Count > 0)
-			///	{
-			///		foreach (var product in products)
-			///		{
-			///			context.Set<Product>().Add(product);
-			///		}
-			///	}
-			///}
+			if (!context.Products.Any())
+			{
+				var productsData = await File.ReadAllTextAsync("../Taabat.Repository/Data/DataSeed/products.json");
+				var products = JsonSerializer.Deserialize<List<Product>>(productsData);
+				if (products?.Count > 0)
+				{
+					foreach (var product in products)
+					{
+						context.Set<Product>().Add(product);
+					}
+				}
+			}
 
 			await context.SaveChangesAsync();
 		}
