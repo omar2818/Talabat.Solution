@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Taabat.Repository\Talabat.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>
