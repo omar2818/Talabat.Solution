@@ -17,11 +17,10 @@ namespace Talabat.Core.Specifications.Product_Specs
 
 		}
 
-        public ProductWithBrandAndCategorySpecifications(Expression<Func<Product, bool>> CriteriaExpression)
-            : base(CriteriaExpression)
+        public ProductWithBrandAndCategorySpecifications(int id)
+            : base(P => P.Id == id)
         {
             AddIncludes();
-
 		}
 
         private void AddIncludes()
