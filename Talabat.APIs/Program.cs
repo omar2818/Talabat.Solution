@@ -1,9 +1,9 @@
-
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Helpers;
+using Talabat.APIs.Middlewares;
 using Talabat.Core.Entities;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Repository;
@@ -81,11 +81,17 @@ namespace Talabat.APIs
 			}
 
 			#region Configure Kestrel Middleareas
+
+			app.UseMiddleware<ExceptionMiddleware>();
+
+
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
+
+				//app.UseDeveloperExceptionPage();
 			}
 
 			app.UseHttpsRedirection();
