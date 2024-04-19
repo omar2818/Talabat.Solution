@@ -10,8 +10,11 @@ namespace Talabat.Core.Specifications.Product_Specs
 {
 	public class ProductWithBrandAndCategorySpecifications : BaseSpecifications<Product>
 	{
-        public ProductWithBrandAndCategorySpecifications(string sort)
-            :base()
+        public ProductWithBrandAndCategorySpecifications(string? sort, int? brandId, int? categoryId)
+            :base(P =>
+				(!brandId.HasValue || brandId.Value == P.BrandId) &&
+				(!categoryId.HasValue || categoryId.Value == P.CategoryId)
+			)
         {
             AddIncludes();
 
@@ -25,7 +28,7 @@ namespace Talabat.Core.Specifications.Product_Specs
             AddIncludes();
 		}
 
-        private void AddSort(string sort)
+        private void AddSort(string? sort)
         {
 
 			if (!string.IsNullOrEmpty(sort))
