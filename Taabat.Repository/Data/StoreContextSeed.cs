@@ -46,6 +46,7 @@ namespace Talabat.Repository.Data
 				{
 					foreach (var product in products)
 					{
+						product.NormalizedName = product.Name.ToLower();
 						context.Set<Product>().Add(product);
 					}
 				}
