@@ -17,7 +17,11 @@ namespace Talabat.Repository.Data.Configurations
 			builder.Property(P => P.Name)
 				.IsRequired()
 				.HasMaxLength(100);
-			
+
+			builder.Property(P => P.NormalizedName)
+				.IsRequired()
+				.HasMaxLength(100);
+
 			builder.Property(P => P.Description)
 				.IsRequired();
 

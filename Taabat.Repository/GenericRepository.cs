@@ -20,13 +20,13 @@ namespace Talabat.Repository
 			_dbcontext = dbcontext;
 		}
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync()
 		{
 			//if(typeof(T) == typeof(Product))
 			//{
 			//	return (IEnumerable<T>) await _dbcontext.Products.Include(P => P.Brand).Include(P => P.Category).ToListAsync();
 			//}
-			return await _dbcontext.Set<T>().ToListAsync();
+			return await _dbcontext.Set<T>().AsNoTracking().ToListAsync();
 		}
 		public async Task<T?> GetAsync(int id)
 		{
@@ -37,9 +37,9 @@ namespace Talabat.Repository
 			return await _dbcontext.Set<T>().FindAsync(id);
 		}
 
-		public async Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecifications<T> spec)
+		public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecifications<T> spec)
 		{
-			return await ApplySpecification(spec).ToListAsync();
+			return await ApplySpecification(spec).AsNoTracking().ToListAsync();
 		}
 
 
@@ -47,10 +47,16 @@ namespace Talabat.Repository
 		{
 			return await ApplySpecification(spec).FirstOrDefaultAsync();
 		}
+		
+		public async Task<int> GetCountAsync(ISpecifications<T> spec)
+		{
+			return await ApplySpecification(spec).CountAsync();
+		}
 
 		private IQueryable<T> ApplySpecification(ISpecifications<T> spec)
 		{
 			return SpecificationsEvaluator<T>.GetQuery(_dbcontext.Set<T>(), spec);
 		}
+
 	}
 }
