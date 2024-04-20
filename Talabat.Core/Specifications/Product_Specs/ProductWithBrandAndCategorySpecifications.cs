@@ -10,16 +10,17 @@ namespace Talabat.Core.Specifications.Product_Specs
 {
 	public class ProductWithBrandAndCategorySpecifications : BaseSpecifications<Product>
 	{
-        public ProductWithBrandAndCategorySpecifications(string? sort, int? brandId, int? categoryId)
+        public ProductWithBrandAndCategorySpecifications(ProductSpecParams specParams)
             :base(P =>
-				(!brandId.HasValue || brandId.Value == P.BrandId) &&
-				(!categoryId.HasValue || categoryId.Value == P.CategoryId)
+				(!specParams.BrandId.HasValue || specParams.BrandId.Value == P.BrandId) &&
+				(!specParams.CategoryId.HasValue || specParams.CategoryId.Value == P.CategoryId)
 			)
         {
             AddIncludes();
 
-			AddSort(sort);
+			AddSort(specParams.Sort);
 
+			ApplyPagination((specParams.PageIndex - 1) * specParams.PageSize, specParams.PageSize);
 		}
 
 		public ProductWithBrandAndCategorySpecifications(int id)
