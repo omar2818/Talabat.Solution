@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Extensions;
 using Talabat.APIs.Helpers;
@@ -28,6 +29,12 @@ namespace Talabat.APIs
 			WebApplicationBuilder.Services.AddDbContext<StoreContext>(options =>
 			{
 				options.UseSqlServer(WebApplicationBuilder.Configuration.GetConnectionString("DefaultConnection"));
+			});
+
+			WebApplicationBuilder.Services.AddSingleton<IConnectionMultiplexer>((servicesProvider) =>
+			{
+				var connection = WebApplicationBuilder.Configuration.GetConnectionString("RedisConnection");
+				return ConnectionMultiplexer.Connect(connection);
 			});
 
 			WebApplicationBuilder.Services.AddApplicationService();
