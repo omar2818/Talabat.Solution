@@ -3,10 +3,11 @@ using Talabat.APIs.Errors;
 using Talabat.APIs.Helpers;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Repository;
+using Talabat.Repository.GenericRepository;
 
 namespace Talabat.APIs.Extensions
 {
-	public static class ApplicationServiceExtension
+    public static class ApplicationServiceExtension
 	{
 		public static IServiceCollection AddApplicationService(this IServiceCollection Services)
 		{

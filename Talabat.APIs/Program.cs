@@ -9,11 +9,12 @@ using Talabat.APIs.Middlewares;
 using Talabat.Core.Entities;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Repository;
-using Talabat.Repository.Data;
+using Talabat.Repository._Identity;
+using Talabat.Repository.GenericRepository.Data;
 
 namespace Talabat.APIs
 {
-	public class Program
+    public class Program
 	{
 		public static async Task Main(string[] args)
 		{
@@ -31,7 +32,12 @@ namespace Talabat.APIs
 				options.UseSqlServer(WebApplicationBuilder.Configuration.GetConnectionString("DefaultConnection"));
 			});
 
-			WebApplicationBuilder.Services.AddSingleton<IConnectionMultiplexer>((servicesProvider) =>
+            WebApplicationBuilder.Services.AddDbContext<AppllicationIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(WebApplicationBuilder.Configuration.GetConnectionString("IdentityConnection"));
+            });
+
+            WebApplicationBuilder.Services.AddSingleton<IConnectionMultiplexer>((servicesProvider) =>
 			{
 				var connection = WebApplicationBuilder.Configuration.GetConnectionString("RedisConnection");
 				return ConnectionMultiplexer.Connect(connection);
@@ -43,29 +49,45 @@ namespace Talabat.APIs
 
 			var app = WebApplicationBuilder.Build();
 
+			#region Apply All Pending Migrations[Update-Database] and Data Seeding
+			
 			using var scope = app.Services.CreateScope();
 
 			var services = scope.ServiceProvider;
 
 			var _dbContext = services.GetRequiredService<StoreContext>();
+			var _IdentitydbContext = services.GetRequiredService<AppllicationIdentityDbContext>();
 
 			var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+			var logger = loggerFactory.CreateLogger<Program>();
 
 			try
 			{
 				await _dbContext.Database.MigrateAsync();
 
 				await StoreContextSeed.SeedAsync(_dbContext);
-			}catch (Exception ex)
+			}
+			catch (Exception ex)
 			{
-				var logger = loggerFactory.CreateLogger<Program>();
 				logger.LogError(ex, "An error has been occured during the migration");
 
 			}
 
-			#region Configure Kestrel Middleareas
+            try
+            {
+                await _IdentitydbContext.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error has been occured during the migration");
 
-			app.UseMiddleware<ExceptionMiddleware>();
+            }
+
+            #endregion
+
+            #region Configure Kestrel Middleareas
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
 
 			// Configure the HTTP request pipeline.

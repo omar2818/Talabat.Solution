@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.Errors;
-using Talabat.Repository.Data;
+using Talabat.Repository.GenericRepository.Data;
 
 namespace Talabat.APIs.Controllers
 {
-	public class BuggyController : BaseAPIController
+    public class BuggyController : BaseAPIController
 	{
 		private readonly StoreContext _dbContext;
 
