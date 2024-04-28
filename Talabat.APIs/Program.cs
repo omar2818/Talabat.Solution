@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -7,6 +8,7 @@ using Talabat.APIs.Extensions;
 using Talabat.APIs.Helpers;
 using Talabat.APIs.Middlewares;
 using Talabat.Core.Entities;
+using Talabat.Core.Entities.Identity;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Repository;
 using Talabat.Repository._Identity;
@@ -36,6 +38,9 @@ namespace Talabat.APIs
             {
                 options.UseSqlServer(WebApplicationBuilder.Configuration.GetConnectionString("IdentityConnection"));
             });
+
+			WebApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+				                          .AddEntityFrameworkStores<AppllicationIdentityDbContext>();
 
             WebApplicationBuilder.Services.AddSingleton<IConnectionMultiplexer>((servicesProvider) =>
 			{
@@ -76,6 +81,9 @@ namespace Talabat.APIs
             try
             {
                 await _IdentitydbContext.Database.MigrateAsync();
+
+				var _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                await AppllicationIdentityContextSeed.SeedUsersAsync(_userManager);
             }
             catch (Exception ex)
             {
