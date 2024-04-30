@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.DTOs;
@@ -11,14 +13,14 @@ using Talabat.Core.Specifications.Product_Specs;
 
 namespace Talabat.APIs.Controllers
 {
-	public class ProductController : BaseAPIController
+	public class ProductsController : BaseAPIController
 	{
 		private readonly IGenericRepository<Product> _productRepo;
 		private readonly IGenericRepository<ProductBrand> _brandsRepo;
 		private readonly IGenericRepository<ProductCategory> _categoriesRepo;
 		private readonly IMapper _mapper;
 
-		public ProductController(
+		public ProductsController(
 			IGenericRepository<Product> productRepo,
 			IGenericRepository<ProductBrand> brandsRepo,
 			IGenericRepository<ProductCategory> categoriesRepo,
@@ -30,8 +32,12 @@ namespace Talabat.APIs.Controllers
 			_mapper = mapper;
 		}
 
-		// /api/Products
-		[HttpGet]
+
+        // /api/Products
+        // default AuthenticationSchemes = "AuthenticationSchemes"
+        // this "JwtBearerDefaults.AuthenticationScheme" is instead of "Bearer"
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
 		public async Task<ActionResult<Pagination<ProductToReturnDTO>>> GetProducts([FromQuery] ProductSpecParams specParams)
 		{
 			var spec = new ProductWithBrandAndCategorySpecifications(specParams);

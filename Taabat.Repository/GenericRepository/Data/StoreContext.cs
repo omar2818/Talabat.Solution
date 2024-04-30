@@ -7,23 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.Core.Entities;
 
-namespace Talabat.Repository.Data
+namespace Talabat.Repository.GenericRepository.Data
 {
-	public class StoreContext : DbContext
-	{
+    public class StoreContext : DbContext
+    {
         public StoreContext(DbContextOptions<StoreContext> contextOptions)
-			:base(contextOptions)
+            : base(contextOptions)
         {
-            
+
         }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-		}
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
 
-		public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
