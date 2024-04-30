@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System.Security.Claims;
 using Talabat.APIs.DTOs;
 using Talabat.APIs.Errors;
+using Talabat.APIs.Extensions;
 using Talabat.Core.Entities.Identity;
 using Talabat.Core.Services.Contract;
 
@@ -93,6 +94,15 @@ namespace Talabat.APIs.Controllers
                 Email = user?.Email ?? string.Empty,
                 Token = await _authService.CreateTokenAsync(user, _userManager)
             });
+        }
+
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<Address>> GetUserAddress()
+        {
+            var user = await _userManager.FindUserWithAddressAsync(User);
+
+            return Ok(user.Address);
         }
 
     }
