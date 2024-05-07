@@ -1,12 +1,16 @@
 **Talabat Web API**
+
 Introduction
 Talabat is Web API used for shopping online where you can create an account, login, preview and filter products, adding products to basket, creating orders.
 
 **Project Support Features**
+
 Users can signup and login to their accounts
 Public (non-authenticated) users can access the index page where they can view the products
 Authenticated users can create orders and pay for the order
+
 **API Endpoints**
+
 | HTTP Verbs | Endpoints | Action |
 
 | POST | /api/Accounts/Register | To sign up a new user account |
@@ -33,6 +37,7 @@ Authenticated users can create orders and pay for the order
 | GET | /api/Products/Brands | To get all products brands |
 
 **Technologies Used**
+
 SQL Server This is a is a relational database management system (RDBMS).
 ASP.NET Core This is a cross-platform, high-performance, open-source framework for building modern, cloud-enabled, Internet-connected apps.
 Entity Framework Core This is a modern object-database mapper for . NET.
