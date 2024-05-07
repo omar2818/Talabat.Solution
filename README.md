@@ -38,7 +38,7 @@ Authenticated users can create orders and pay for the order
 
 **Technologies Used**
 
-SQL Server This is a is a relational database management system (RDBMS).
-ASP.NET Core This is a cross-platform, high-performance, open-source framework for building modern, cloud-enabled, Internet-connected apps.
-Entity Framework Core This is a modern object-database mapper for . NET.
-Auto Mapper This is a library used to map data from one object to another.
+- SQL Server This is a is a relational database management system (RDBMS).
+* ASP.NET Core This is a cross-platform, high-performance, open-source framework for building modern, cloud-enabled, Internet-connected apps.
++ Entity Framework Core This is a modern object-database mapper for . NET.
+- Auto Mapper This is a library used to map data from one object to another.
