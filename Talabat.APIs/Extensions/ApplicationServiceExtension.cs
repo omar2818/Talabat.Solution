@@ -4,9 +4,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Talabat.APIs.Errors;
 using Talabat.APIs.Helpers;
+using Talabat.Core.Repositories;
 using Talabat.Core.Repositories.Contract;
+using Talabat.Core.Services;
+using Talabat.Core.Services.Contract;
 using Talabat.Repository;
+using Talabat.Repository.Data;
 using Talabat.Repository.GenericRepository;
+using Talabat.Service;
+using Talabat.Service.AuthService;
 
 namespace Talabat.APIs.Extensions
 {
@@ -41,8 +47,18 @@ namespace Talabat.APIs.Extensions
 					return new BadRequestObjectResult(response);
 				};
 			});
+            
+			Services.AddScoped<IPaymentService, PaymentService>();
+            
+			Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-			return Services;
+            Services.AddScoped<IOrderService, OrderService>();
+
+            Services.AddScoped<IAuthService, AuthService>();
+
+
+
+            return Services;
 		}
 
 		public static IServiceCollection AddAuthServices(this IServiceCollection Services, IConfiguration Configuration)

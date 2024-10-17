@@ -83,6 +83,12 @@ namespace Talabat.APIs.Controllers
                 Token = await _authService.CreateTokenAsync(user, _userManager)
             });
         }
+        
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
+        }
 
         [Authorize]
         [HttpGet]

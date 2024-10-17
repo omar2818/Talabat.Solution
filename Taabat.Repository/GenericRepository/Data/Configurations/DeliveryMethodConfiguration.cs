@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talabat.Core.Entities;
+using Talabat.Core.Entities.Order_Aggregate;
 
 namespace Talabat.Repository.GenericRepository.Data.Configurations
 {
-    internal class ProductCategoryConfigurations : IEntityTypeConfiguration<ProductCategory>
+    public class DeliveryMethodConfiguration : IEntityTypeConfiguration<DeliveryMethod>
     {
-        public void Configure(EntityTypeBuilder<ProductCategory> builder)
+        public void Configure(EntityTypeBuilder<DeliveryMethod> builder)
         {
-            builder.Property(P => P.Name)
-                .IsRequired();
+            builder.Property(DM => DM.Cost)
+                .HasColumnType("decimal(18, 2)");
         }
     }
 }

@@ -9,12 +9,12 @@ using Talabat.Core.Entities;
 
 namespace Talabat.Repository.GenericRepository.Data.Configurations
 {
-    internal class ProductBrandConfigurations : IEntityTypeConfiguration<ProductBrand>
+    internal class BrandConfig : IEntityTypeConfiguration<ProductBrand>
     {
         public void Configure(EntityTypeBuilder<ProductBrand> builder)
         {
-            builder.Property(P => P.Name)
-                .IsRequired();
+            builder.Property(B => B.Name).IsRequired();
+            builder.HasIndex(B => B.Name).IsUnique();
         }
     }
 }
