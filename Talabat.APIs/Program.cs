@@ -63,9 +63,11 @@ namespace Talabat.APIs
 
 			WebApplicationBuilder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 
-			#endregion
+            WebApplicationBuilder.Services.AddIdentityServices(WebApplicationBuilder.Configuration);
 
-			var app = WebApplicationBuilder.Build();
+            #endregion
+
+            var app = WebApplicationBuilder.Build();
 
 			#region Apply All Pending Migrations[Update-Database] and Data Seeding
 			
@@ -83,7 +85,7 @@ namespace Talabat.APIs
 			{
 				await _dbContext.Database.MigrateAsync();
 
-				await StoreContextSeed.SeedAsync(_dbContext);
+				await StoreContextSeed.SeedAsync(_dbContext, loggerFactory);
 			}
 			catch (Exception ex)
 			{
@@ -123,13 +125,18 @@ namespace Talabat.APIs
 
 			app.UseStaticFiles();
 
-			//app.UseAuthorization();
+            app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-			app.MapControllers(); 
-			#endregion
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            #endregion
 
-			app.Run();
+            app.Run();
 		}
 	}
 }

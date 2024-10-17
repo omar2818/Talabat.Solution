@@ -1,23 +1,20 @@
 [
-    {
-        "Name": "Starbucks"
-    },
-    {
-        "Name": "Costa"
-    },
-    {
-        "Name": "Cilantro"
-    },
-    {
-        "Name": "TBS"
-    },
-    {
-        "Name": "On The Run"
-    },
-    {
-        "Name": "Caribou"
-    },
-    {
-        "Name": "Krispy Kreme"
-    }
+  {
+    "Name": "Angular"
+  },
+  {
+    "Name": "NetCore"
+  },
+  {
+    "Name": "VS Code"
+  },
+  {
+    "Name": "React"
+  },
+  {
+    "Name": "Typescript"
+  },
+  {
+    "Name": "Redis"
+  }
 ]
