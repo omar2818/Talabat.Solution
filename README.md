@@ -3,6 +3,8 @@
 Introduction
 Talabat is Web API used for shopping online where you can create an account, login, preview and filter products, adding products to basket, creating orders.
 
+With Admin DashBoard to manage Users, Roles, Products and Product Brands.
+
 **Project Support Features**
 
 Users can signup and login to their accounts
