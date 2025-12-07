@@ -1,0 +1,8 @@
+﻿@Presentation_HostAddress = https://localhost:7270
+
+GET {{Presentation_HostAddress}}/api/Products
+
+### Get Product By Id
+@id = 15
+GET {{Presentation_HostAddress}}/api/Products/{{id}}
+
